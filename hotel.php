@@ -5,8 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
 </head>
-<body>
+<body class="min-vh-100 p-5">
     <?php 
 
     $hotels = [
@@ -50,17 +51,35 @@
     ];
 
     ?>
-    <main>
-        <h1>Hotel</h1>
-        <p>
-            <?php 
-            foreach ($hotels as $hotel) {
-                echo '<br>';
-                foreach ($hotel as $info)
-                    echo $info . " ";
-            }
-            ?>
-        </p>
+    <main class="m-8">
+        <h1 class="mb-5">Hotel</h1>
+        <table class="table table-light table-striped border border-3">
+            <thead>
+                <tr>
+                    <?php
+                        foreach ($hotels[0] as $key => $value) {
+                            echo "<th scope='col'>$key</th>";
+                        }
+                    ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                    foreach ($hotels as $hotel) {
+                        echo "<tr>";
+                        foreach ($hotel as $key => $value) {
+                            $value === false && $value = '&check;';
+                            $value === true && $value = '&cross;';
+                            echo "<td> $value </td>";
+                        }
+                        echo "</tr>";
+                    }
+                ?>
+            </tbody>
+
+
+
+        </table>
     </main>
 </body>
 </html>
