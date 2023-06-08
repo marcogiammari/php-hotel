@@ -51,34 +51,50 @@
     ];
 
     ?>
-    <main>
-        <h1 class="mb-5">Hotel</h1>
-        <table class="table table-light table-striped border border-3">
-            <thead>
-                <tr>
-                    <?php foreach ($hotels[0] as $key => $value) { ?>
-                        <th scope='col'><?php echo $key; } ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                    foreach ($hotels as $hotel) {
-                        if ($_GET['parking'] == 'on' && $hotel['parking'] == false) {
-                            continue;
-                        };                          
-                        if ($_GET['vote'] == 'on' && $hotel['vote'] < 3) {
-                            continue;
-                        };  
-                        echo "<tr>";
-                        foreach ($hotel as $key => $value) {
-                            $value === false && $value = '&cross;';
-                            $value === true && $value = '&check;';
-                            echo "<td> $value </td>";
+    <main class="d-flex flex-column gap-5">
+        <div>
+            <h1 class="mb-5">Find your hotel</h1>
+            <form action="hotel.php" method="GET">
+                <h5>Filters</h5>
+                <div class="d-flex align-items-center gap-2 py-1">
+                    <label for="parking">Parking:</label>
+                    <input type="checkbox" name="parking" id="parking">
+                </div>
+                <div class="d-flex align-items-center gap-2 py-1">
+                    <label for="vote">Vote:</label>
+                    <input type="checkbox" name="vote" id="vote">
+                </div>
+                <button class="btn btn-success mt-3" type="submit">Find Hotel</button>
+            </form>
+        </div>
+        <div>
+            <table class="table table-light table-striped border border-3">
+                <thead>
+                    <tr>
+                        <?php foreach ($hotels[0] as $key => $value) { ?>
+                            <th scope='col'><?php echo $key; } ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                        foreach ($hotels as $hotel) {
+                            if ($_GET['parking'] == 'on' && $hotel['parking'] == false) {
+                                continue;
+                            };                          
+                            if ($_GET['vote'] == 'on' && $hotel['vote'] < 3) {
+                                continue;
+                            };  
+                            echo "<tr>";
+                            foreach ($hotel as $key => $value) {
+                                $value === false && $value = '&cross;';
+                                $value === true && $value = '&check;';
+                                echo "<td> $value </td>";
+                            }
+                            echo "</tr>";
                         }
-                        echo "</tr>";
-                    }
-                ?>
-            </tbody>
+                    ?>
+                </tbody>
+        </div>
             
 
             <?php
