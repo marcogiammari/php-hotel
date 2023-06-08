@@ -51,32 +51,40 @@
     ];
 
     ?>
-    <main class="m-8">
+    <main>
         <h1 class="mb-5">Hotel</h1>
         <table class="table table-light table-striped border border-3">
             <thead>
                 <tr>
-                    <?php
-                        foreach ($hotels[0] as $key => $value) {
-                            echo "<th scope='col'>$key</th>";
-                        }
-                    ?>
+                    <?php foreach ($hotels[0] as $key => $value) { ?>
+                        <th scope='col'><?php echo $key; } ?></th>
                 </tr>
             </thead>
             <tbody>
                 <?php 
                     foreach ($hotels as $hotel) {
+                        if ($_GET['parking'] == 'on' && $hotel['parking'] == false) {
+                            continue;
+                        };                          
+                        if ($_GET['vote'] == 'on' && $hotel['vote'] < 3) {
+                            continue;
+                        };  
                         echo "<tr>";
                         foreach ($hotel as $key => $value) {
-                            $value === false && $value = '&check;';
-                            $value === true && $value = '&cross;';
+                            $value === false && $value = '&cross;';
+                            $value === true && $value = '&check;';
                             echo "<td> $value </td>";
                         }
                         echo "</tr>";
                     }
                 ?>
             </tbody>
+            
 
+            <?php
+                // var_dump($_GET['parking']);
+                // var_dump($_GET['vote']);
+            ?>
 
 
         </table>
