@@ -11,7 +11,6 @@
     <?php 
 
     $hotels = [
-
         [
             'name' => 'Hotel Belvedere',
             'description' => 'Hotel Belvedere Descrizione',
@@ -47,8 +46,19 @@
             'vote' => 2,
             'distance_to_center' => 50
         ],
-
     ];
+
+    $hotels_filtered = [];
+
+    foreach ($hotels as $hotel) {
+        if ($_GET['parking'] == 'on' && $hotel['parking'] == false) {
+            continue;
+        };                          
+        if ($_GET['vote'] == 'on' && $hotel['vote'] < 3) {
+            continue;
+        };  
+        $hotels_filtered[] = $hotel;
+    }
 
     ?>
     <main class="d-flex flex-column gap-5">
@@ -77,13 +87,7 @@
                 </thead>
                 <tbody>
                     <?php 
-                        foreach ($hotels as $hotel) {
-                            if ($_GET['parking'] == 'on' && $hotel['parking'] == false) {
-                                continue;
-                            };                          
-                            if ($_GET['vote'] == 'on' && $hotel['vote'] < 3) {
-                                continue;
-                            };  
+                        foreach ($hotels_filtered as $hotel) {
                             echo "<tr>";
                             foreach ($hotel as $key => $value) {
                                 $value === false && $value = '&cross;';
