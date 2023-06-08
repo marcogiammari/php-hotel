@@ -54,7 +54,7 @@
         if ($_GET['parking'] == 'on' && $hotel['parking'] == false) {
             continue;
         };                          
-        if ($_GET['vote'] == 'on' && $hotel['vote'] < 3) {
+        if ($hotel['vote'] < $_GET['vote']) {
             continue;
         };  
         $hotels_filtered[] = $hotel;
@@ -68,12 +68,13 @@
                 <h5>Filters</h5>
                 <div class="d-flex align-items-center gap-2 py-1">
                     <label for="parking">Parking:</label>
-                    <input type="checkbox" name="parking" id="parking">
+                    <input class="form-check-input" type="checkbox" name="parking" id="parking">
                 </div>
                 <div class="d-flex align-items-center gap-2 py-1">
                     <label for="vote">Vote:</label>
-                    <input type="checkbox" name="vote" id="vote">
+                    <input class="form-control w-auto" type="number" name="vote" id="vote" min="0" max=5>
                 </div>
+                <button class="btn btn-warning mt-3" type="reset">Reset</button>
                 <button class="btn btn-success mt-3" type="submit">Find Hotel</button>
             </form>
         </div>
