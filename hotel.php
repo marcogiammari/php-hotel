@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,8 +8,9 @@
     <title>Hotel</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
 </head>
+
 <body class="min-vh-100 p-5">
-    <?php 
+    <?php
 
     $hotels = [
         [
@@ -50,13 +52,16 @@
 
     $hotels_filtered = [];
 
+
     foreach ($hotels as $hotel) {
-        if ($_GET['parking'] == 'on' && $hotel['parking'] == false) {
-            continue;
-        };                          
-        if ($hotel['vote'] < $_GET['vote']) {
-            continue;
-        };  
+        if (isset($_GET['parking']) && isset($_GET['vote'])) {
+            if ($_GET['parking'] == 'on' && $hotel['parking'] == false) {
+                continue;
+            };
+            if ($hotel['vote'] < $_GET['vote']) {
+                continue;
+            };
+        }
         $hotels_filtered[] = $hotel;
     }
 
@@ -83,32 +88,34 @@
                 <thead>
                     <tr>
                         <?php foreach ($hotels[0] as $key => $value) { ?>
-                            <th scope='col'><?php echo $key; } ?></th>
+                            <th scope='col'><?php echo $key;
+                                        } ?></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php 
-                        foreach ($hotels_filtered as $hotel) {
-                            echo "<tr>";
-                            foreach ($hotel as $key => $value) {
-                                $value === false && $value = '&cross;';
-                                $value === true && $value = '&check;';
-                                echo "<td> $value </td>";
-                            }
-                            echo "</tr>";
+                    <?php
+                    foreach ($hotels_filtered as $hotel) {
+                        echo "<tr>";
+                        foreach ($hotel as $key => $value) {
+                            $value === false && $value = '&cross;';
+                            $value === true && $value = '&check;';
+                            echo "<td> $value </td>";
                         }
+                        echo "</tr>";
+                    }
                     ?>
                 </tbody>
         </div>
-            
 
-            <?php
-                // var_dump($_GET['parking']);
-                // var_dump($_GET['vote']);
-            ?>
+
+        <?php
+        // var_dump($_GET['parking']);
+        // var_dump($_GET['vote']);
+        ?>
 
 
         </table>
     </main>
 </body>
+
 </html>
